@@ -1,7 +1,13 @@
-pollutantmean <- function(directory,pollutant,id=1:332) {
+# This script calculates the mean of a column on a dataset of .csv files.
+# Parameters: directory_name <- The directory's name of the files
+# Column: The name of the target variable.
+# ID: Given the files are in a nummerical order, ID sets wich interval of them are going to be calculated.
+
+
+meanFiles <- function(directory_name,column,id=1:332) {
     
     readFiles = function(id){
-        files <- dir(paste('/home/GuH/Documents/DataScience/Coursera/R Programming/',directory,sep = ''), recursive=TRUE, full.names=TRUE, pattern="\\.csv$")
+        files <- dir(paste('/home/GuH/Documents/DataScience/Coursera/R Programming/',directory_name,sep = ''), recursive=TRUE, full.names=TRUE, pattern="\\.csv$")
         return(files[id])
     }
 
@@ -15,12 +21,13 @@ pollutantmean <- function(directory,pollutant,id=1:332) {
         return(data)
     }
     
-    getMean = function(pollutant,id){
+    getMean = function(column,id){
         data = makeData(id)
-        res = mean(data[[pollutant]],na.rm = TRUE)
+        res = mean(data[[column]],na.rm = TRUE)
         return(res)
     }
-    return(getMean(pollutant,id))
+    return(getMean(column,id))
 }
 
-res = pollutantmean("specdata","sulfate",1:30)
+#EXAMPLE:
+#mean = meanFiles("specdata","sulfate",1:30)
